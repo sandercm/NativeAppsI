@@ -1,6 +1,7 @@
 package com.example.nativeapps.ui.login
 
 import android.app.Activity
+import android.content.Intent
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -15,6 +16,7 @@ import android.widget.Toast
 import com.example.nativeapps.databinding.ActivityLoginBinding
 
 import com.example.nativeapps.R
+import com.example.nativeapps.ui.main.ListActivity
 
 class LoginActivity : AppCompatActivity() {
 
@@ -107,6 +109,7 @@ class LoginActivity : AppCompatActivity() {
             "$welcome $displayName",
             Toast.LENGTH_LONG
         ).show()
+        startActivity(Intent(this, ListActivity::class.java))
     }
 
     private fun showLoginFailed(@StringRes errorString: Int) {
