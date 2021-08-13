@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nativeapps.databinding.FragmentListBinding
+import java.lang.Exception
 
 /**
  * A placeholder fragment containing a simple view.
@@ -40,10 +41,20 @@ class PlaceholderFragment : Fragment() {
         llm.orientation = LinearLayoutManager.VERTICAL
 
         listView.layoutManager = llm
-
-        pageViewModel.list.observe(viewLifecycleOwner, {
-            listView.adapter = TaskAdapter(it.toTypedArray());
-        })
+        try {
+            val tab = arguments?.getInt("section_number")
+            if(tab == 1){
+                pageViewModel.todoList.observe(viewLifecycleOwner, {
+                    listView.adapter = TaskAdapter(it.toTypedArray());
+                })
+            }else{
+                pageViewModel.doneList.observe(viewLifecycleOwner, {
+                    listView.adapter = TaskAdapter(it.toTypedArray());
+                })
+            }
+        }catch (e: Exception) {
+            println("no argument passed for tab number")
+        }
         return root
     }
 
