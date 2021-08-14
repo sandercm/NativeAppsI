@@ -1,10 +1,9 @@
-package com.example.nativeapps.ui.main
+package com.example.nativeapps.data.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import com.example.nativeapps.data.model.Task
 
 class PageViewModel : ViewModel() {
 

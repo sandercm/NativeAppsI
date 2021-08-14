@@ -6,7 +6,7 @@
     <data>
         <variable
             name="taskData"
-            type="com.example.nativeapps.ui.main.Task" />
+            type="com.example.nativeapps.data.model.Task" />
     </data>
 
     <FrameLayout

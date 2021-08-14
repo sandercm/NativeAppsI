@@ -3,6 +3,7 @@ package com.example.nativeapps.ui.main
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.nativeapps.data.model.Task
 import com.example.nativeapps.databinding.TextRowItemBinding
 
 
