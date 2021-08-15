@@ -23,18 +23,18 @@ class ListActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val sectionsPagerAdapter = SectionsPagerAdapter(this)
-        val viewPager: ViewPager2 = binding.pager
-        viewPager.adapter = sectionsPagerAdapter
-        val tabs: TabLayout = binding.tabs
-        TabLayoutMediator(tabs, viewPager) { tab, position -> if(position == 0) tab.text = "TODO" else tab.text = "DONE" }.attach()
-        val fab: FloatingActionButton = binding.fab
-
-        fab.setOnClickListener { view ->
-            val list = findViewById<AppBarLayout>(R.id.app_bar_layout)
-            val displayMetrics: DisplayMetrics = list.context.getResources().getDisplayMetrics()
-            val dpHeight = list.height / displayMetrics.density
-            val dpWidth = list.width / displayMetrics.density
-            println("${dpHeight} ${dpWidth}")
-        }
+//        val viewPager: ViewPager2 = binding.pager
+//        viewPager.adapter = sectionsPagerAdapter
+//        val tabs: TabLayout = binding.tabs
+//        TabLayoutMediator(tabs, viewPager) { tab, position -> if(position == 0) tab.text = "TODO" else tab.text = "DONE" }.attach()
+//        val fab: FloatingActionButton = binding.fab
+//
+//        fab.setOnClickListener { view ->
+//            val list = findViewById<AppBarLayout>(R.id.app_bar_layout)
+//            val displayMetrics: DisplayMetrics = list.context.getResources().getDisplayMetrics()
+//            val dpHeight = list.height / displayMetrics.density
+//            val dpWidth = list.width / displayMetrics.density
+//            println("${dpHeight} ${dpWidth}")
+//        }
     }
 }
