@@ -7,5 +7,18 @@
     <fragment
         android:id="@+id/viewPagerContainerFragment"
         android:name="com.example.nativeapps.ui.main.ViewPagerContainerFragment"
-        android:label="ViewPagerContainerFragment" />
+        android:label="ViewPagerContainerFragment" >
+        <action
+            android:id="@+id/action_viewPagerContainerFragment_to_taskDetailFragment"
+            app:destination="@id/taskDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/taskDetailFragment"
+        android:name="com.example.nativeapps.ui.detail.TaskDetailFragment"
+        android:label="task_detail_fragment"
+        tools:layout="@layout/task_detail_fragment" >
+        <argument
+            android:name="task_id"
+            app:argType="string" />
+    </fragment>
 </navigation>

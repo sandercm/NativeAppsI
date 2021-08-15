@@ -2,19 +2,20 @@ package com.example.nativeapps.ui.main
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nativeapps.data.model.Task
 import com.example.nativeapps.databinding.TextRowItemBinding
 
 
-class TaskAdapter(private val dataSet: Array<Task>) :
+class TaskAdapter(private val dataSet: Array<Task>, private val navHostFragment: NavController) :
     RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
 
     /**
      * Provide a reference to the type of views that you are using
      * (custom ViewHolder).
      */
-    class ViewHolder(view: TextRowItemBinding) : RecyclerView.ViewHolder(view.root) {
+    class ViewHolder(view: TextRowItemBinding, navHostFragment: NavController) : RecyclerView.ViewHolder(view.root) {
         val binding = view;
 
         fun bind(taskData: Task) {
@@ -23,14 +24,17 @@ class TaskAdapter(private val dataSet: Array<Task>) :
 
         init {
             // Define click listener for the ViewHolder's View.
+            // This will navigate away from the tabbed list view and show a detailed view of the TASK.
+            val action = ViewPagerContainerFragmentDirections.actionViewPagerContainerFragmentToTaskDetailFragment()
+            view.root.setOnClickListener { navHostFragment.navigate(action) }
         }
 
         companion object {
-            fun from(parent: ViewGroup): ViewHolder {
+            fun from(parent: ViewGroup, navHostFragment: NavController): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = TextRowItemBinding.inflate(layoutInflater, parent, false)
 
-                return ViewHolder(binding)
+                return ViewHolder(binding, navHostFragment)
             }
         }
     }
@@ -38,7 +42,7 @@ class TaskAdapter(private val dataSet: Array<Task>) :
     // Create new views (invoked by the layout manager)
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         // Create a new view, which defines the UI of the list item
-        return ViewHolder.from(viewGroup)
+        return ViewHolder.from(viewGroup, navHostFragment)
     }
 
     // Replace the contents of a view (invoked by the layout manager)

@@ -37,8 +37,6 @@ class ViewPagerContainerFragment : Fragment() {
         val tabs: TabLayout = binding.tabLayout
 
         TabLayoutMediator(tabs, viewPager) { tab, position ->
-            println(tab)
-            println(position)
             when (position) {
                 0 -> tab.text = "TODO"
                 1 -> tab.text = "DONE"
