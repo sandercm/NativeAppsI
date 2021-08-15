@@ -47,7 +47,7 @@ class PlaceholderFragment : Fragment() {
         llm.orientation = LinearLayoutManager.VERTICAL
         listView.layoutManager = llm
 
-        // Pass the nav controller down to the elements
+        // Retrieve the NavHostFragment to be able to easily pass it down to the list items.
         val navHostFragment =
             parentFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController

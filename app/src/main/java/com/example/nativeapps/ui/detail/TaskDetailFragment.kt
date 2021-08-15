@@ -1,32 +1,50 @@
 package com.example.nativeapps.ui.detail
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.nativeapps.R
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
+import com.example.nativeapps.data.model.Task
+import com.example.nativeapps.data.viewmodel.TaskDetailViewModel
+import com.example.nativeapps.databinding.TaskDetailFragmentBinding
 
 class TaskDetailFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = TaskDetailFragment()
-    }
+    // declare the view bindings
+    private var _binding: TaskDetailFragmentBinding? = null
+    private val binding get() = _binding!!
+    // declare the nav args
+    private val args : TaskDetailFragmentArgs by navArgs()
+    // declare the viewModel
+    private lateinit var taskDetailViewModel: TaskDetailViewModel
 
-    private lateinit var viewModel: TaskDetailViewModel
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        taskDetailViewModel = ViewModelProvider(this).get(TaskDetailViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.task_detail_fragment, container, false)
-    }
+        _binding = TaskDetailFragmentBinding.inflate(inflater, container, false)
+        val view = binding.root
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(TaskDetailViewModel::class.java)
-        // TODO: Use the ViewModel
+        // Use view binding the fill the detail screen as it is not complex enough to warrant using a databinding
+        val task: Task? = args.taskId?.let { taskDetailViewModel.getTaskById(it) };
+        if (task != null) {
+            binding.taskTitle.text = task.name
+            binding.taskBody.text = task.description
+            binding.completedSwitch.isChecked = task.completed
+            binding.completedSwitch.setOnCheckedChangeListener { _, b ->
+                taskDetailViewModel.setCompletedStatus(task.name, b)
+            }
+        }
+
+        return view
     }
 
 }

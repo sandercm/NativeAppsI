@@ -9,7 +9,6 @@
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="106.57143dp"
-        android:background="#49CF4F" />
+        android:layout_marginTop="106.57143dp" />
 
 </FrameLayout>

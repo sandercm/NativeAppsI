@@ -22,11 +22,17 @@ class TaskAdapter(private val dataSet: Array<Task>, private val navHostFragment:
             binding.taskData = taskData;
         }
 
+        private fun getId(): String? {
+            return binding.taskData?.name
+        }
+
         init {
             // Define click listener for the ViewHolder's View.
             // This will navigate away from the tabbed list view and show a detailed view of the TASK.
-            val action = ViewPagerContainerFragmentDirections.actionViewPagerContainerFragmentToTaskDetailFragment()
-            view.root.setOnClickListener { navHostFragment.navigate(action) }
+            view.root.setOnClickListener {
+                val action = ViewPagerContainerFragmentDirections.actionViewPagerContainerFragmentToTaskDetailFragment(getId())
+                navHostFragment.navigate(action)
+            }
         }
 
         companion object {
