@@ -6,9 +6,9 @@ import com.example.nativeapps.data.model.Task
 class TaskDetailViewModel: ViewModel() {
 
     private val taskData: MutableList<Task> = mutableListOf(
-        Task("first", "the first Task"),
-        Task("second", "the second Task"),
-        Task("third", "the Third task"),
+        Task("first", "the first Task", true),
+        Task("second", "the second Task", true),
+        Task("third", "the Third task", true),
         Task("forth", "the forth Task", true),
         Task("fifth", "the fifth Task", true),
         Task("sixth", "the sixth task", true)

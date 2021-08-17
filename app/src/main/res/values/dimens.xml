@@ -10,4 +10,6 @@
     <dimen name="task_padding">15dp</dimen>
     <dimen name="no_padding">0dp</dimen>
     <dimen name="button_right_align">15dp</dimen>
+    <dimen name="list_item_spacing">16dp</dimen>
+    <dimen name="list_item_spacing_half">8dp</dimen>
 </resources>

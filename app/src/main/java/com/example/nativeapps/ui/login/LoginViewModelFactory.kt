@@ -3,7 +3,8 @@ package com.example.nativeapps.ui.login
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.nativeapps.data.LoginDataSource
-import com.example.nativeapps.data.LoginRepository
+import com.example.nativeapps.repository.LoginRepository
+import com.example.nativeapps.repository.firebase.FireAuthRepository
 
 /**
  * ViewModel provider factory to instantiate LoginViewModel.
@@ -15,9 +16,7 @@ class LoginViewModelFactory : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(LoginViewModel::class.java)) {
             return LoginViewModel(
-                loginRepository = LoginRepository(
-                    dataSource = LoginDataSource()
-                )
+                loginRepository = FireAuthRepository()
             ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")

@@ -1,6 +1,7 @@
 package com.example.nativeapps.ui.login
 
 import android.app.Activity
+import android.content.ContentValues
 import android.content.Intent
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -9,6 +10,7 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
@@ -17,6 +19,7 @@ import com.example.nativeapps.databinding.ActivityLoginBinding
 
 import com.example.nativeapps.R
 import com.example.nativeapps.ui.main.ListActivity
+import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity() {
 
@@ -67,6 +70,8 @@ class LoginActivity : AppCompatActivity() {
             finish()
         })
 
+        loginViewModel.initFireAuth()
+
         username.afterTextChanged {
             loginViewModel.loginDataChanged(
                 username.text.toString(),
@@ -85,17 +90,44 @@ class LoginActivity : AppCompatActivity() {
             setOnEditorActionListener { _, actionId, _ ->
                 when (actionId) {
                     EditorInfo.IME_ACTION_DONE ->
-                        loginViewModel.login(
-                            username.text.toString(),
-                            password.text.toString()
-                        )
+                        loginUser(username, password)
                 }
                 false
             }
 
             login.setOnClickListener {
                 loading.visibility = View.VISIBLE
-                loginViewModel.login(username.text.toString(), password.text.toString())
+                loginUser(username, password)
+            }
+        }
+    }
+
+    private fun loginUser(
+        username: EditText,
+        password: EditText,
+    ) {
+        loginViewModel.login(
+            username.text.toString(),
+            password.text.toString(),
+            this@LoginActivity
+        ).addOnCompleteListener(this@LoginActivity) { task ->
+            if (task.isSuccessful) {
+                // Sign in success, update UI with the signed-in user's information
+                Log.d(ContentValues.TAG, "signInWithEmail:success")
+                val userName = task.result?.user?.displayName
+                println("succesful login")
+                loginViewModel.loginResult.value =
+                    LoginResult(success = userName?.let { LoggedInUserView(displayName = it) })
+                startActivity(Intent(this@LoginActivity, ListActivity::class.java))
+            } else {
+                // If sign in fails, display a message to the user.
+                Log.w(ContentValues.TAG, "signInWithEmail:failure", task.exception)
+                Toast.makeText(
+                    this@LoginActivity.baseContext, "Authentication failed.",
+                    Toast.LENGTH_SHORT
+                ).show()
+                println("bad login")
+                loginViewModel.loginResult.value = LoginResult(error = R.string.login_failed)
             }
         }
     }
@@ -103,7 +135,7 @@ class LoginActivity : AppCompatActivity() {
     private fun updateUiWithUser(model: LoggedInUserView) {
         val welcome = getString(R.string.welcome)
         val displayName = model.displayName
-        // TODO : initiate successful logged in experience
+        Log.d(ContentValues.TAG, "signInWithEmail:success")
         Toast.makeText(
             applicationContext,
             "$welcome $displayName",

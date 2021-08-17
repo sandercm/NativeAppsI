@@ -1,5 +1,7 @@
-package com.example.nativeapps.data
+package com.example.nativeapps.repository
 
+import com.example.nativeapps.data.LoginDataSource
+import com.example.nativeapps.data.Result
 import com.example.nativeapps.data.model.LoggedInUser
 
 /**
