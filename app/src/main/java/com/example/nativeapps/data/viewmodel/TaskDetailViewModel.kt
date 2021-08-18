@@ -9,11 +9,11 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.nativeapps.data.model.Task
+import com.example.nativeapps.repository.firebase.IStorageRepository
 import com.example.nativeapps.repository.firebase.StorageRepository
 
-class TaskDetailViewModel: ViewModel() {
+class TaskDetailViewModel(private val firebaseRepository: IStorageRepository): ViewModel() {
 
-    private var firebaseRepository = StorageRepository()
     private val _task: MutableLiveData<Task> = MutableLiveData()
     val task: MutableLiveData<Task> = _task
 
@@ -28,9 +28,7 @@ class TaskDetailViewModel: ViewModel() {
         }.addOnFailureListener { e -> println(e) }
     }
 
-
     fun setOnCheckedChanged(button: CompoundButton, b: Boolean) {
-        println("called set completed")
         task.value?.completed = b
         firebaseRepository.saveTaskItem(task.value!!)
     }

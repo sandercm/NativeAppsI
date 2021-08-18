@@ -10,7 +10,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.example.nativeapps.R
 import com.example.nativeapps.data.viewmodel.TaskDetailViewModel
+import com.example.nativeapps.data.viewmodel.TaskDetailViewModelFactory
 import com.example.nativeapps.databinding.TaskDetailFragmentBinding
+import com.example.nativeapps.repository.firebase.StorageRepository
 
 class TaskDetailFragment : Fragment() {
 
@@ -28,7 +30,7 @@ class TaskDetailFragment : Fragment() {
     ): View? {
         // _binding = TaskDetailFragmentBinding.inflate(inflater, container, false)
         _binding = DataBindingUtil.inflate(inflater, R.layout.task_detail_fragment, container, false)
-        taskDetailViewModel = ViewModelProvider(this).get(TaskDetailViewModel::class.java)
+        taskDetailViewModel = ViewModelProvider(this, TaskDetailViewModelFactory(StorageRepository())).get(TaskDetailViewModel::class.java)
         binding.viewModel = taskDetailViewModel
         binding.lifecycleOwner = this.viewLifecycleOwner
         val view = binding.root

@@ -6,19 +6,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nativeapps.R
 import com.example.nativeapps.data.viewmodel.PageViewModel
+import com.example.nativeapps.data.viewmodel.PageViewModelFactory
 import com.example.nativeapps.databinding.FragmentListBinding
+import com.example.nativeapps.repository.firebase.StorageRepository
 import java.lang.Exception
 
 /**
  * A placeholder fragment containing a simple view.
  */
-class PlaceholderFragment : Fragment() {
+class TabbedTaskPaneFragment : Fragment() {
 
     private lateinit var pageViewModel: PageViewModel
     private var _binding: FragmentListBinding? = null
@@ -29,7 +30,7 @@ class PlaceholderFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        pageViewModel = ViewModelProvider(this).get(PageViewModel::class.java)
+        pageViewModel = ViewModelProvider(this, PageViewModelFactory(StorageRepository())).get(PageViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -82,8 +83,8 @@ class PlaceholderFragment : Fragment() {
          * number.
          */
         @JvmStatic
-        fun newInstance(sectionNumber: Int): PlaceholderFragment {
-            return PlaceholderFragment().apply {
+        fun newInstance(sectionNumber: Int): TabbedTaskPaneFragment {
+            return TabbedTaskPaneFragment().apply {
                 arguments = Bundle().apply {
                     putInt(ARG_SECTION_NUMBER, sectionNumber)
                 }

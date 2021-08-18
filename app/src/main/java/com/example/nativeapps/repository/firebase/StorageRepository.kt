@@ -1,37 +1,65 @@
 package com.example.nativeapps.repository.firebase
 
+import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import com.example.nativeapps.data.model.Task
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.CollectionReference
-import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.*
 import com.google.android.gms.tasks.Task as AsyncTask
 
-class StorageRepository {
+class StorageRepository: IStorageRepository {
 
     val TAG = "FIREBASE_REPOSITORY"
-    var firestoreDB = FirebaseFirestore.getInstance()
-    var user = FirebaseAuth.getInstance().currentUser
+    override var firestoreDB = FirebaseFirestore.getInstance()
+    override var user = FirebaseAuth.getInstance().currentUser
+    override var savedTODOTasks: MutableLiveData<List<Task>> = MutableLiveData()
+    override var savedDONETasks: MutableLiveData<List<Task>> = MutableLiveData()
 
-    // save address to firebase
-    fun saveTaskItem(task: Task): AsyncTask<Void> {
+    private fun filterTasks(
+        e: FirebaseFirestoreException?,
+        value: QuerySnapshot?,
+        list: MutableLiveData<List<Task>>,
+        status: Boolean
+    ) {
+        if (e != null) {
+            Log.w(TAG, "Listen failed.", e)
+            list.value = null
+            return
+        }
+
+        val savedList: MutableList<Task> = mutableListOf()
+        for (doc in value!!) {
+            val task = doc.toObject(Task::class.java)
+            if (task.completed == status) {
+                savedList.add(task)
+            }
+        }
+        list.value = savedList
+    }
+
+    override fun initTasks(todo: Boolean): ListenerRegistration {
+        return getSavedTasks().addSnapshotListener { value, e ->
+            filterTasks(e, value, if (todo) savedDONETasks else savedTODOTasks, todo)
+        }
+    }
+
+    override fun saveTaskItem(task: Task): AsyncTask<Void> {
         println("saving task")
         println(task)
         return firestoreDB.collection("users").document(user!!.email.toString())
             .collection("saved_tasks").document(task.name).set(task)
     }
 
-    // get saved addresses from firebase
-    fun getSavedTasks(): CollectionReference {
+    override fun getSavedTasks(): CollectionReference {
         return firestoreDB.collection("users/${user!!.email.toString()}/saved_tasks")
     }
 
-    fun getTask(task: Task): com.google.android.gms.tasks.Task<DocumentSnapshot> {
+    override fun getTask(task: Task): com.google.android.gms.tasks.Task<DocumentSnapshot> {
         return firestoreDB.collection("users/${user!!.email.toString()}/saved_tasks")
             .document(task.name).get()
     }
 
-    fun deleteTask(task: Task): AsyncTask<Void> {
+    override fun deleteTask(task: Task): AsyncTask<Void> {
         return firestoreDB.collection("users/${user!!.email.toString()}/saved_tasks")
             .document(task.name).delete()
     }
