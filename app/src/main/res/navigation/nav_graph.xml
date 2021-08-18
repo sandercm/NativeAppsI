@@ -11,6 +11,9 @@
         <action
             android:id="@+id/action_viewPagerContainerFragment_to_taskDetailFragment"
             app:destination="@id/taskDetailFragment" />
+        <action
+            android:id="@+id/action_viewPagerContainerFragment_to_taskAddFragment"
+            app:destination="@id/taskAddFragment" />
     </fragment>
     <fragment
         android:id="@+id/taskDetailFragment"
@@ -21,5 +24,14 @@
             android:name="task_id"
             app:argType="string"
             app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/taskAddFragment"
+        android:name="com.example.nativeapps.ui.taskadd.TaskAddFragment"
+        android:label="fragment_task_add"
+        tools:layout="@layout/fragment_task_add" >
+        <action
+            android:id="@+id/action_taskAddFragment_to_viewPagerContainerFragment"
+            app:destination="@id/viewPagerContainerFragment" />
     </fragment>
 </navigation>

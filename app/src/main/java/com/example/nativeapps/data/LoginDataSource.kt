@@ -1,6 +1,7 @@
 package com.example.nativeapps.data
 
 import com.example.nativeapps.data.model.LoggedInUser
+import com.example.nativeapps.data.model.Result
 import java.io.IOException
 
 /**

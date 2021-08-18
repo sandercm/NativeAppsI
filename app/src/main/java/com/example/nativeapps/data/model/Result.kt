@@ -1,4 +1,4 @@
-package com.example.nativeapps.data
+package com.example.nativeapps.data.model
 
 /**
  * A generic class that holds a value with its loading status.

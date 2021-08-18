@@ -17,4 +17,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="completed">Completed</string>
     <string name="loading">loading</string>
+    <string name="create_a_new_task">Create a new Task</string>
+    <string name="name_of_the_task">Name of the task:</string>
+    <string name="create_new_task">Create new task!</string>
+    <string name="add_a_description_for_the_task">Add a description for the task.</string>
+    <string name="add_the_title_of_the_task">Add the title of the task.</string>
 </resources>

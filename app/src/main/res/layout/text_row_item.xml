@@ -26,12 +26,5 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:text="@{taskData.toString()}" />
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/button_right_align"
-            android:layout_gravity="end"
-            android:src="@drawable/ic_baseline_check_24" />
     </FrameLayout>
 </layout>

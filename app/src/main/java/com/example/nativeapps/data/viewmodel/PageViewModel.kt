@@ -5,26 +5,25 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.nativeapps.data.model.Task
-import com.example.nativeapps.repository.firebase.FireStoreRepository
+import com.example.nativeapps.repository.firebase.StorageRepository
 import com.google.firebase.firestore.EventListener
-import com.google.firebase.firestore.QuerySnapshot
 
 class PageViewModel : ViewModel() {
 
     val TAG = "PAGE_VIEW_MODEL"
-    var firebaseRepository = FireStoreRepository()
-    var savedTODOTasks: MutableLiveData<List<Task>> = MutableLiveData()
-    var savedDONETasks: MutableLiveData<List<Task>> = MutableLiveData()
+    var firebaseRepository = StorageRepository()
+    private var savedTODOTasks: MutableLiveData<List<Task>> = MutableLiveData()
+    private var savedDONETasks: MutableLiveData<List<Task>> = MutableLiveData()
 
     fun saveTaskToDatabase(task: Task) {
-        firebaseRepository.saveAddressItem(task).addOnFailureListener {
+        firebaseRepository.saveTaskItem(task).addOnFailureListener {
             Log.e(TAG, "Failed to save task")
         }
     }
 
     // get realtime updates from firebase regarding saved tasks
     fun getSavedTODOTasks(): LiveData<List<Task>>{
-        firebaseRepository.getSavedAddress().addSnapshotListener(EventListener { value, e ->
+        firebaseRepository.getSavedTasks().addSnapshotListener(EventListener { value, e ->
             if (e != null) {
                 Log.w(TAG, "Listen failed.", e)
                 savedTODOTasks.value = null
@@ -46,7 +45,7 @@ class PageViewModel : ViewModel() {
 
     // get realtime updates from firebase regarding saved tasks
     fun getSavedDONETasks(): LiveData<List<Task>>{
-        firebaseRepository.getSavedAddress().addSnapshotListener(EventListener { value, e ->
+        firebaseRepository.getSavedTasks().addSnapshotListener(EventListener { value, e ->
             if (e != null) {
                 Log.w(TAG, "Listen failed.", e)
                 savedTODOTasks.value = null
@@ -68,7 +67,7 @@ class PageViewModel : ViewModel() {
 
     // delete an address from firebase
     fun deleteTask(task: Task){
-        firebaseRepository.deleteAddress(task).addOnFailureListener {
+        firebaseRepository.deleteTask(task).addOnFailureListener {
             Log.e(TAG,"Failed to delete task")
         }
     }

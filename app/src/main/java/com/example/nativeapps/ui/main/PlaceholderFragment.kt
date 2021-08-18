@@ -55,11 +55,11 @@ class PlaceholderFragment : Fragment() {
         try {
             val tab = arguments?.getInt("section_number")
             if(tab == 1){
-                pageViewModel.savedTODOTasks.observe(viewLifecycleOwner, {
+                pageViewModel.getSavedTODOTasks().observe(viewLifecycleOwner, {
                     listView.adapter = TaskAdapter(it.toTypedArray(), navController);
                 })
             }else{
-                pageViewModel.savedTODOTasks.observe(viewLifecycleOwner, {
+                pageViewModel.getSavedDONETasks().observe(viewLifecycleOwner, {
                     listView.adapter = TaskAdapter(it.toTypedArray(), navController);
                 })
             }

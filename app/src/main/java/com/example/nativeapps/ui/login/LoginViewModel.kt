@@ -1,15 +1,11 @@
 package com.example.nativeapps.ui.login
 
-import android.content.ContentValues.TAG
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import android.util.Patterns
-import android.widget.Toast
 
 import com.example.nativeapps.R
-import com.example.nativeapps.data.Result
 import com.example.nativeapps.repository.firebase.FireAuthRepository
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult

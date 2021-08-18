@@ -1,24 +1,37 @@
 package com.example.nativeapps.data.viewmodel
 
+import android.widget.CompoundButton
+import androidx.databinding.Bindable
+import androidx.databinding.BindingAdapter
+import androidx.databinding.InverseMethod
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.nativeapps.data.model.Task
+import com.example.nativeapps.repository.firebase.StorageRepository
 
 class TaskDetailViewModel: ViewModel() {
 
-    private val taskData: MutableList<Task> = mutableListOf(
-        Task("first", "the first Task", true),
-        Task("second", "the second Task", true),
-        Task("third", "the Third task", true),
-        Task("forth", "the forth Task", true),
-        Task("fifth", "the fifth Task", true),
-        Task("sixth", "the sixth task", true)
-    )
+    private var firebaseRepository = StorageRepository()
+    private val _task: MutableLiveData<Task> = MutableLiveData()
+    val task: MutableLiveData<Task> = _task
 
-    fun getTaskById(string: String): Task? {
-        return taskData.find { it.name == string }
+    val completed = MutableLiveData(false)
+
+    fun setTaskById(string: String) {
+        firebaseRepository.getSavedTasks().document(string).get().addOnSuccessListener {
+                document ->
+            val task = document.toObject(Task::class.java)!!
+            _task.value = task
+            completed.value = task.completed
+        }.addOnFailureListener { e -> println(e) }
     }
 
-    fun setCompletedStatus(string: String, b: Boolean) {
-        taskData.find { it.name == string }?.completed = b
+
+    fun setOnCheckedChanged(button: CompoundButton, b: Boolean) {
+        println("called set completed")
+        task.value?.completed = b
+        firebaseRepository.saveTaskItem(task.value!!)
     }
 }

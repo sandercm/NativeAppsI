@@ -3,6 +3,7 @@ package com.example.nativeapps.ui.main
 import android.os.Bundle
 import android.util.DisplayMetrics
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.example.nativeapps.R
 import com.example.nativeapps.databinding.ActivityListBinding
@@ -21,5 +22,12 @@ class ListActivity : AppCompatActivity() {
 
         binding = ActivityListBinding.inflate(layoutInflater)
         setContentView(binding.root)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        binding.fab.setOnClickListener {
+            findNavController(R.id.nav_host_fragment).navigate(ViewPagerContainerFragmentDirections.actionViewPagerContainerFragmentToTaskAddFragment())
+        }
     }
 }

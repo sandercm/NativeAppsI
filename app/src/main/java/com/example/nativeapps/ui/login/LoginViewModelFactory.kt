@@ -2,8 +2,6 @@ package com.example.nativeapps.ui.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.nativeapps.data.LoginDataSource
-import com.example.nativeapps.repository.LoginRepository
 import com.example.nativeapps.repository.firebase.FireAuthRepository
 
 /**
