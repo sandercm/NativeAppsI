@@ -13,8 +13,11 @@ interface IStorageRepository {
     var savedDONETasks: MutableLiveData<List<Task>>
 
     fun initTasks(todo: Boolean): Any
-    fun saveTaskItem(task: Task): com.google.android.gms.tasks.Task<Void>
     fun getSavedTasks(): CollectionReference
+
     fun getTask(task: Task): com.google.android.gms.tasks.Task<DocumentSnapshot>
+    fun saveTaskItem(task: Task): com.google.android.gms.tasks.Task<Void>
     fun deleteTask(task: Task): com.google.android.gms.tasks.Task<Void>
+
+    fun setTaskById(string: String, _task: MutableLiveData<Task>, completed: MutableLiveData<Boolean>)
 }

@@ -15,6 +15,15 @@ class StorageRepository: IStorageRepository {
     override var savedTODOTasks: MutableLiveData<List<Task>> = MutableLiveData()
     override var savedDONETasks: MutableLiveData<List<Task>> = MutableLiveData()
 
+    override fun setTaskById(string: String, _task: MutableLiveData<Task>, completed: MutableLiveData<Boolean>) {
+        getSavedTasks().document(string).get().addOnSuccessListener {
+                document ->
+            val task = document.toObject(Task::class.java)!!
+            _task.value = task
+            completed.value = task.completed
+        }.addOnFailureListener { e -> println(e) }
+    }
+
     private fun filterTasks(
         e: FirebaseFirestoreException?,
         value: QuerySnapshot?,

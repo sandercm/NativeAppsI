@@ -74,4 +74,5 @@ dependencies {
     testImplementation 'org.mockito:mockito-core:3.9.0'
     // required if you want to use Mockito for Android tests
     androidTestImplementation 'org.mockito:mockito-android:3.9.0'
+    androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
 }

@@ -20,12 +20,10 @@ class TaskDetailViewModel(private val firebaseRepository: IStorageRepository): V
     val completed = MutableLiveData(false)
 
     fun setTaskById(string: String) {
-        firebaseRepository.getSavedTasks().document(string).get().addOnSuccessListener {
-                document ->
-            val task = document.toObject(Task::class.java)!!
-            _task.value = task
-            completed.value = task.completed
-        }.addOnFailureListener { e -> println(e) }
+        println("inside set task")
+        println(task)
+        println(completed)
+        firebaseRepository.setTaskById(string, task, completed)
     }
 
     fun setOnCheckedChanged(button: CompoundButton, b: Boolean) {
