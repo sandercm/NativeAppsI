@@ -21,7 +21,7 @@ class LoginViewModel(private val loginRepository: FireAuthRepository) : ViewMode
         loginRepository.initFireBaseAuth()
     }
 
-    fun login(username: String, password: String, loginActivity: LoginActivity): Task<AuthResult> {
+    fun login(username: String, password: String): Task<AuthResult> {
         // launches a separate asynchronous job
         return loginRepository.signInWithEmailAndPassword(username, password)
     }

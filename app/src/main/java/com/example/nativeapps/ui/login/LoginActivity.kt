@@ -19,7 +19,6 @@ import com.example.nativeapps.databinding.ActivityLoginBinding
 
 import com.example.nativeapps.R
 import com.example.nativeapps.ui.main.ListActivity
-import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity() {
 
@@ -108,8 +107,7 @@ class LoginActivity : AppCompatActivity() {
     ) {
         loginViewModel.login(
             username.text.toString(),
-            password.text.toString(),
-            this@LoginActivity
+            password.text.toString()
         ).addOnCompleteListener(this@LoginActivity) { task ->
             if (task.isSuccessful) {
                 // Sign in success, update UI with the signed-in user's information

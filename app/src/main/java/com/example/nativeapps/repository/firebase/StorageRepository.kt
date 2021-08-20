@@ -1,19 +1,29 @@
 package com.example.nativeapps.repository.firebase
 
+import android.graphics.drawable.Drawable
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import androidx.room.Room
 import com.example.nativeapps.data.model.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.io.InputStream
+import java.net.URL
 import com.google.android.gms.tasks.Task as AsyncTask
+
 
 class StorageRepository: IStorageRepository {
 
     val TAG = "FIREBASE_REPOSITORY"
+
     override var firestoreDB = FirebaseFirestore.getInstance()
     override var user = FirebaseAuth.getInstance().currentUser
     override var savedTODOTasks: MutableLiveData<List<Task>> = MutableLiveData()
     override var savedDONETasks: MutableLiveData<List<Task>> = MutableLiveData()
+    val apiInterface = ImageApiEndPoint.create().getImages()
 
     override fun setTaskById(string: String, _task: MutableLiveData<Task>, completed: MutableLiveData<Boolean>) {
         getSavedTasks().document(string).get().addOnSuccessListener {
@@ -72,4 +82,5 @@ class StorageRepository: IStorageRepository {
         return firestoreDB.collection("users/${user!!.email.toString()}/saved_tasks")
             .document(task.name).delete()
     }
+
 }

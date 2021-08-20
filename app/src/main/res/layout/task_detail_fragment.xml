@@ -31,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:checked="@={viewModel.completed}"
-            android:onCheckedChanged="@{(button, b) -> viewModel.setOnCheckedChanged(button, b)}"
+            android:onCheckedChanged="@{(_, b) -> viewModel.setOnCheckedChanged(b)}"
             android:text="@string/completed" />
 
     </LinearLayout>

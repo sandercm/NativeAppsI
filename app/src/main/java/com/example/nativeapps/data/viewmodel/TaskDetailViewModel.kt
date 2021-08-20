@@ -1,18 +1,11 @@
 package com.example.nativeapps.data.viewmodel
 
-import android.widget.CompoundButton
-import androidx.databinding.Bindable
-import androidx.databinding.BindingAdapter
-import androidx.databinding.InverseMethod
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.nativeapps.data.model.Task
 import com.example.nativeapps.repository.firebase.IStorageRepository
-import com.example.nativeapps.repository.firebase.StorageRepository
 
-class TaskDetailViewModel(private val firebaseRepository: IStorageRepository): ViewModel() {
+class TaskDetailViewModel(private val storageRepository: IStorageRepository): ViewModel() {
 
     private val _task: MutableLiveData<Task> = MutableLiveData()
     val task: MutableLiveData<Task> = _task
@@ -23,11 +16,15 @@ class TaskDetailViewModel(private val firebaseRepository: IStorageRepository): V
         println("inside set task")
         println(task)
         println(completed)
-        firebaseRepository.setTaskById(string, task, completed)
+        storageRepository.setTaskById(string, task, completed)
     }
 
-    fun setOnCheckedChanged(button: CompoundButton, b: Boolean) {
+    fun setOnCheckedChanged(b: Boolean) {
         task.value?.completed = b
-        firebaseRepository.saveTaskItem(task.value!!)
+        storageRepository.saveTaskItem(task.value!!)
+    }
+
+    fun getImage() {
+        storageRepository
     }
 }
