@@ -1,21 +1,18 @@
 package com.example.nativeapps.repository.firebase
 
-import android.graphics.drawable.Drawable
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import androidx.room.Room
 import com.example.nativeapps.data.model.Task
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import java.io.InputStream
-import java.net.URL
+import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.FirebaseFirestoreException
+import com.google.firebase.firestore.ListenerRegistration
+import com.google.firebase.firestore.QuerySnapshot
 import com.google.android.gms.tasks.Task as AsyncTask
 
-
-class StorageRepository: IStorageRepository {
+class StorageRepository : IStorageRepository {
 
     val TAG = "FIREBASE_REPOSITORY"
 
@@ -27,7 +24,7 @@ class StorageRepository: IStorageRepository {
 
     override fun setTaskById(string: String, _task: MutableLiveData<Task>, completed: MutableLiveData<Boolean>) {
         getSavedTasks().document(string).get().addOnSuccessListener {
-                document ->
+            document ->
             val task = document.toObject(Task::class.java)!!
             _task.value = task
             completed.value = task.completed
@@ -70,17 +67,16 @@ class StorageRepository: IStorageRepository {
     }
 
     override fun getSavedTasks(): CollectionReference {
-        return firestoreDB.collection("users/${user!!.email.toString()}/saved_tasks")
+        return firestoreDB.collection("users/${user!!.email}/saved_tasks")
     }
 
     override fun getTask(task: Task): com.google.android.gms.tasks.Task<DocumentSnapshot> {
-        return firestoreDB.collection("users/${user!!.email.toString()}/saved_tasks")
+        return firestoreDB.collection("users/${user!!.email}/saved_tasks")
             .document(task.name).get()
     }
 
     override fun deleteTask(task: Task): AsyncTask<Void> {
-        return firestoreDB.collection("users/${user!!.email.toString()}/saved_tasks")
+        return firestoreDB.collection("users/${user!!.email}/saved_tasks")
             .document(task.name).delete()
     }
-
 }

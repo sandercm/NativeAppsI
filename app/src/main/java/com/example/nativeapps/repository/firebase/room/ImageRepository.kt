@@ -1,7 +1,5 @@
 package com.example.nativeapps.repository.firebase.room
 
-
-import androidx.lifecycle.LiveData
 import com.example.nativeapps.repository.firebase.Image
 import com.example.nativeapps.repository.firebase.ImageDao
 

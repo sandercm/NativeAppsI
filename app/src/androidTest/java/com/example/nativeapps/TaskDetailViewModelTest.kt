@@ -1,20 +1,16 @@
 package com.example.nativeapps
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.MutableLiveData
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.nativeapps.data.model.Task
 import com.example.nativeapps.data.viewmodel.TaskDetailViewModel
 import com.example.nativeapps.repository.firebase.IStorageRepository
 import junit.framework.TestCase
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito
-import org.junit.Rule
-
-
-
 
 @RunWith(AndroidJUnit4::class)
 class TaskDetailViewModelTest : TestCase() {

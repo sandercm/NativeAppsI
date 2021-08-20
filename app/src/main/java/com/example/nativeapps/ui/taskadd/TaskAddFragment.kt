@@ -13,16 +13,7 @@ import com.example.nativeapps.R
 import com.example.nativeapps.data.model.Task
 import com.example.nativeapps.data.viewmodel.TaskAddFragmentViewModelFactory
 import com.example.nativeapps.data.viewmodel.TaskAddViewModel
-import com.example.nativeapps.data.viewmodel.TaskDetailViewModel
-import com.example.nativeapps.data.viewmodel.TaskDetailViewModelFactory
 import com.example.nativeapps.databinding.FragmentTaskAddBinding
-import com.example.nativeapps.repository.firebase.Image
-import com.example.nativeapps.repository.firebase.StorageRepository
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import kotlin.random.Random
-
 
 /**
  * A simple [Fragment] subclass.
@@ -40,7 +31,8 @@ class TaskAddFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // DataBindingUtil.inflate(inflater, R.layout.task_detail_fragment, container, false)

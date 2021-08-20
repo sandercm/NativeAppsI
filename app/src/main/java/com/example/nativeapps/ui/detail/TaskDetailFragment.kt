@@ -20,12 +20,13 @@ class TaskDetailFragment : Fragment() {
     private var _binding: TaskDetailFragmentBinding? = null
     private val binding get() = _binding!!
     // declare the nav args
-    private val args : TaskDetailFragmentArgs by navArgs()
+    private val args: TaskDetailFragmentArgs by navArgs()
     // declare the viewModel
     private lateinit var taskDetailViewModel: TaskDetailViewModel
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // _binding = TaskDetailFragmentBinding.inflate(inflater, container, false)
@@ -34,7 +35,6 @@ class TaskDetailFragment : Fragment() {
         binding.viewModel = taskDetailViewModel
         binding.lifecycleOwner = this.viewLifecycleOwner
         val view = binding.root
-
 
         // Use view binding the fill the detail screen as it is not complex enough to warrant using a databinding
         args.taskId?.let { taskDetailViewModel.setTaskById(it) }

@@ -8,7 +8,7 @@ sealed class Result<out T : Any> {
 
     data class Success<out T : Any>(val data: T) : Result<T>()
     data class Error(val exception: Exception) : Result<Nothing>()
-    data class Canceled(val exception: java.lang.Exception?): Result<Nothing>()
+    data class Canceled(val exception: java.lang.Exception?) : Result<Nothing>()
 
     override fun toString(): String {
         return when (this) {
@@ -18,4 +18,3 @@ sealed class Result<out T : Any> {
         }
     }
 }
-

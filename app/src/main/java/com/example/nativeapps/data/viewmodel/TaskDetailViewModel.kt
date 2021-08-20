@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.example.nativeapps.data.model.Task
 import com.example.nativeapps.repository.firebase.IStorageRepository
 
-class TaskDetailViewModel(private val storageRepository: IStorageRepository): ViewModel() {
+class TaskDetailViewModel(private val storageRepository: IStorageRepository) : ViewModel() {
 
     private val _task: MutableLiveData<Task> = MutableLiveData()
     val task: MutableLiveData<Task> = _task

@@ -25,19 +25,24 @@ class PageViewModelTest : TestCase() {
 
     @Before
     fun setUpMockito() {
-        Mockito.`when`(mockFireBaseRepository.savedTODOTasks).thenReturn(MutableLiveData(
-            arrayListOf(
-                Task("first task", "first desc", false),
-                Task("second task", "second desc", false),
-                Task("third task", "third desc", false)
-            )))
-        Mockito.`when`(mockFireBaseRepository.savedDONETasks).thenReturn(MutableLiveData(
-            arrayListOf(
-                Task("forth task", "forth desc", true),
-                Task("fifth task", "fifth desc", true),
-                Task("sixth task", "sixth desc", true)
-            )))
-
+        Mockito.`when`(mockFireBaseRepository.savedTODOTasks).thenReturn(
+            MutableLiveData(
+                arrayListOf(
+                    Task("first task", "first desc", false),
+                    Task("second task", "second desc", false),
+                    Task("third task", "third desc", false)
+                )
+            )
+        )
+        Mockito.`when`(mockFireBaseRepository.savedDONETasks).thenReturn(
+            MutableLiveData(
+                arrayListOf(
+                    Task("forth task", "forth desc", true),
+                    Task("fifth task", "fifth desc", true),
+                    Task("sixth task", "sixth desc", true)
+                )
+            )
+        )
     }
 
     @Test

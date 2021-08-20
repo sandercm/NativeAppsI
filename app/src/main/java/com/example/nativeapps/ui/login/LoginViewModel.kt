@@ -1,10 +1,9 @@
 package com.example.nativeapps.ui.login
 
+import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import android.util.Patterns
-
 import com.example.nativeapps.R
 import com.example.nativeapps.repository.firebase.FireAuthRepository
 import com.google.android.gms.tasks.Task

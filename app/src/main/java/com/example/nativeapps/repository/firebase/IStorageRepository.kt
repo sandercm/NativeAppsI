@@ -2,9 +2,10 @@ package com.example.nativeapps.repository.firebase
 
 import androidx.lifecycle.MutableLiveData
 import com.example.nativeapps.data.model.Task
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.firestore.*
+import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.FirebaseFirestore
 
 interface IStorageRepository {
     var firestoreDB: FirebaseFirestore

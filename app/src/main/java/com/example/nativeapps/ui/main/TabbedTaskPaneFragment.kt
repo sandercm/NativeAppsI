@@ -34,13 +34,13 @@ class TabbedTaskPaneFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
         _binding = FragmentListBinding.inflate(inflater, container, false)
         val root = binding.root
-
 
         // Set up the required class for the viewpage and recyclerview
         val listView: RecyclerView = binding.taskList
@@ -55,16 +55,16 @@ class TabbedTaskPaneFragment : Fragment() {
 
         try {
             val tab = arguments?.getInt("section_number")
-            if(tab == 1){
+            if (tab == 1) {
                 pageViewModel.getSavedTODOTasks().observe(viewLifecycleOwner, {
-                    listView.adapter = TaskAdapter(it.toTypedArray(), navController);
+                    listView.adapter = TaskAdapter(it.toTypedArray(), navController)
                 })
-            }else{
+            } else {
                 pageViewModel.getSavedDONETasks().observe(viewLifecycleOwner, {
-                    listView.adapter = TaskAdapter(it.toTypedArray(), navController);
+                    listView.adapter = TaskAdapter(it.toTypedArray(), navController)
                 })
             }
-        }catch (e: Exception) {
+        } catch (e: Exception) {
             println("no argument passed for tab number")
         }
 

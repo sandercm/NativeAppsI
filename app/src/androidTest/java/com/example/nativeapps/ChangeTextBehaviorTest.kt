@@ -1,7 +1,8 @@
 package com.example.nativeapps
 
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions.*
+import androidx.test.espresso.action.ViewActions.closeSoftKeyboard
+import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
@@ -22,8 +23,8 @@ class ChangeTextBehaviorTest {
     private lateinit var passwordToBeType: String
 
     @get:Rule
-    var activityRule: ActivityScenarioRule<LoginActivity>
-            = ActivityScenarioRule(LoginActivity::class.java)
+    var activityRule: ActivityScenarioRule<LoginActivity> =
+        ActivityScenarioRule(LoginActivity::class.java)
 
     @Before
     fun initValidString() {

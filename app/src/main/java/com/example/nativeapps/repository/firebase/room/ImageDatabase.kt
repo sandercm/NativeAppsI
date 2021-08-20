@@ -7,13 +7,12 @@ import androidx.room.RoomDatabase
 import com.example.nativeapps.repository.firebase.Image
 import com.example.nativeapps.repository.firebase.ImageDao
 
-
 @Database(
     entities = [Image::class],
     version = 1,
     exportSchema = false
 )
-abstract class ImageDatabase: RoomDatabase() {
+abstract class ImageDatabase : RoomDatabase() {
 
     abstract fun imageDAO(): ImageDao
 
@@ -23,10 +22,10 @@ abstract class ImageDatabase: RoomDatabase() {
 
         fun getDatabase(context: Context): ImageDatabase {
             val tempInstance = INSTANCE
-            if(tempInstance != null){
+            if (tempInstance != null) {
                 return tempInstance
             }
-            synchronized(this){
+            synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     ImageDatabase::class.java,

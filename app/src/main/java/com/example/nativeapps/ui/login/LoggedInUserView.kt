@@ -5,5 +5,5 @@ package com.example.nativeapps.ui.login
  */
 data class LoggedInUserView(
     val displayName: String
-    //... other data fields that may be accessible to the UI
+    // ... other data fields that may be accessible to the UI
 )

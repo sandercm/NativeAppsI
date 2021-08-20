@@ -3,11 +3,7 @@ package com.example.nativeapps.ui.login
 import android.app.Activity
 import android.content.ContentValues
 import android.content.Intent
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.annotation.StringRes
-import androidx.appcompat.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -15,9 +11,12 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.Toast
-import com.example.nativeapps.databinding.ActivityLoginBinding
-
+import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.nativeapps.R
+import com.example.nativeapps.databinding.ActivityLoginBinding
 import com.example.nativeapps.ui.main.ListActivity
 
 class LoginActivity : AppCompatActivity() {
@@ -39,35 +38,41 @@ class LoginActivity : AppCompatActivity() {
         loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
             .get(LoginViewModel::class.java)
 
-        loginViewModel.loginFormState.observe(this@LoginActivity, Observer {
-            val loginState = it ?: return@Observer
+        loginViewModel.loginFormState.observe(
+            this@LoginActivity,
+            Observer {
+                val loginState = it ?: return@Observer
 
-            // disable login button unless both username / password is valid
-            login.isEnabled = loginState.isDataValid
+                // disable login button unless both username / password is valid
+                login.isEnabled = loginState.isDataValid
 
-            if (loginState.usernameError != null) {
-                username.error = getString(loginState.usernameError)
+                if (loginState.usernameError != null) {
+                    username.error = getString(loginState.usernameError)
+                }
+                if (loginState.passwordError != null) {
+                    password.error = getString(loginState.passwordError)
+                }
             }
-            if (loginState.passwordError != null) {
-                password.error = getString(loginState.passwordError)
-            }
-        })
+        )
 
-        loginViewModel.loginResult.observe(this@LoginActivity, Observer {
-            val loginResult = it ?: return@Observer
+        loginViewModel.loginResult.observe(
+            this@LoginActivity,
+            Observer {
+                val loginResult = it ?: return@Observer
 
-            loading.visibility = View.GONE
-            if (loginResult.error != null) {
-                showLoginFailed(loginResult.error)
-            }
-            if (loginResult.success != null) {
-                updateUiWithUser(loginResult.success)
-            }
-            setResult(Activity.RESULT_OK)
+                loading.visibility = View.GONE
+                if (loginResult.error != null) {
+                    showLoginFailed(loginResult.error)
+                }
+                if (loginResult.success != null) {
+                    updateUiWithUser(loginResult.success)
+                }
+                setResult(Activity.RESULT_OK)
 
-            //Complete and destroy login activity once successful
-            finish()
-        })
+                // Complete and destroy login activity once successful
+                finish()
+            }
+        )
 
         loginViewModel.initFireAuth()
 

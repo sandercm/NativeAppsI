@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.nativeapps.data.model.Task
 import com.example.nativeapps.databinding.TextRowItemBinding
 
-
 class TaskAdapter(private val dataSet: Array<Task>, private val navHostFragment: NavController) :
     RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
 
@@ -16,10 +15,10 @@ class TaskAdapter(private val dataSet: Array<Task>, private val navHostFragment:
      * (custom ViewHolder).
      */
     class ViewHolder(view: TextRowItemBinding, navHostFragment: NavController) : RecyclerView.ViewHolder(view.root) {
-        val binding = view;
+        val binding = view
 
         fun bind(taskData: Task) {
-            binding.taskData = taskData;
+            binding.taskData = taskData
         }
 
         private fun getId(): String? {
@@ -61,5 +60,4 @@ class TaskAdapter(private val dataSet: Array<Task>, private val navHostFragment:
 
     // Return the size of your dataset (invoked by the layout manager)
     override fun getItemCount() = dataSet.size
-
 }

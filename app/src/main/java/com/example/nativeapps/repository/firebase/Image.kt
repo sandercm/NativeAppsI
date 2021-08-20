@@ -1,10 +1,15 @@
 package com.example.nativeapps.repository.firebase
 
 import androidx.annotation.NonNull
-import androidx.lifecycle.LiveData
-import androidx.room.*
-import com.google.gson.annotations.SerializedName
+import androidx.room.ColumnInfo
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Entity
+import androidx.room.Insert
+import androidx.room.PrimaryKey
+import androidx.room.Query
 import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 
 @Entity
 class Image {
