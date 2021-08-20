@@ -19,14 +19,6 @@
         android:paddingBottom="@dimen/activity_vertical_margin"
         tools:context="com.example.nativeapps.ui.taskadd.TaskAddFragment">
 
-        <ImageView
-            android:id="@+id/image_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
         <EditText
             android:id="@+id/task_name"
             android:layout_width="0dp"
@@ -64,6 +56,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/task_description"
             app:layout_constraintVertical_bias="0.2" />
+        <ImageView
+            android:id="@+id/image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/add_task" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

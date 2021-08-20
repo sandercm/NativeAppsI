@@ -23,17 +23,23 @@ import com.example.nativeapps.data.model.Task as ModelTask
 
 class TaskAddViewModel(application: Application): AndroidViewModel(application) {
     private var storageRepository = StorageRepository()
-    private var repository: ImageRepository
-    private val readAll: LiveData<List<Image>>
+    private var imageRepository: ImageRepository
+
     init {
         val imageDB = ImageDatabase.getDatabase(application).imageDAO()
-        repository = ImageRepository(imageDB)
-        readAll = repository.getAllImages()
+        imageRepository = ImageRepository(imageDB)
+
     }
 
     fun addAllImages(vararg images: Image) {
         viewModelScope.launch (Dispatchers.IO){
-            repository.insertAll(*images)
+            var newImages: MutableList<Image> = ArrayList()
+            images.forEach {
+                if(!imageRepository.exists(it.id)){
+                    newImages.add(it)
+                }
+            }
+            imageRepository.insertAll(*newImages.toTypedArray())
         }
     }
 
@@ -56,6 +62,8 @@ class TaskAddViewModel(application: Application): AndroidViewModel(application) 
             }
             override fun onFailure(call: Call<List<Image>>?, t: Throwable?) {
                 // use Room if the network call failed
+                var roomImages = imageRepository.getAllImages()
+                imageView.load(roomImages.random().downloadUrl)
             }
         })
     }

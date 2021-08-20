@@ -38,7 +38,7 @@ class Image {
 @Dao
 interface ImageDao {
     @Query("SELECT * FROM image")
-    fun getAll(): LiveData<List<Image>>
+    fun getAll(): List<Image>
 
     @Query("SELECT * FROM image WHERE id IS (:imageId)")
     fun loadAllByIds(imageId: String): Image
@@ -50,5 +50,5 @@ interface ImageDao {
     fun delete(image: Image)
 
     @Query("SELECT EXISTS (SELECT 1 FROM image WHERE id = :id)")
-    fun exists(id: Int): Boolean
+    fun exists(id: String): Boolean
 }

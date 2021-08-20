@@ -10,7 +10,8 @@ import com.example.nativeapps.repository.firebase.ImageDao
 
 @Database(
     entities = [Image::class],
-    version = 1
+    version = 1,
+    exportSchema = false
 )
 abstract class ImageDatabase: RoomDatabase() {
 
